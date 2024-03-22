@@ -1,24 +1,3 @@
-# from fastapi import FastAPI
-
-# from typing import Optional
-# from pydantic import BaseModel, Field, EmailStr, HttpUrl
-
-# app = FastAPI()
-
-
-# @app.get("/api/healthchecker")
-# def root():
-#     return {"message": "Welcome to FastAPI!"}
-
-# @app.get("/api/main")
-# def root1():
-#     return {"message": "Welcome to MAIN!"}
-
-# @app.get("/notes/{note_id}")
-# async def read_note(note_id: int):
-#     return {"note": note_id}
-
-
 from fastapi import FastAPI
 from pydantic import BaseModel
 
