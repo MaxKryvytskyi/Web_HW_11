@@ -7,21 +7,23 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 note_m2m_tag = Table(
-    "note_m2m_tag", 
+    "note_m2m_tag",
     Base.metadata,
     Column("id", Integer, primary_key=True),
     Column("note_id", Integer, ForeignKey("notes.id", ondelete="CASCADE")),
     Column("tag_id", Integer, ForeignKey("tags.id", ondelete="CASCADE")),
 )
 
+
 class Note(Base):
     __tablename__ = "notes"
     id = Column(Integer, primary_key=True)
     title = Column(String(50), nullable=False)
-    create_at = Column("create_at", DateTime, default=func.now())
+    created_at = Column('created_at', DateTime, default=func.now())
     description = Column(String(150), nullable=False)
     done = Column(Boolean, default=False)
-    tags =  relationship("Tag", secondary=note_m2m_tag, backref="notes")
+    tags = relationship("Tag", secondary=note_m2m_tag, backref="notes")
+
 
 class Tag(Base):
     __tablename__ = "tags"

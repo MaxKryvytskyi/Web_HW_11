@@ -28,7 +28,7 @@ class NoteUpdate(NoteModel):
 
 
 class NoteStatusUpdate(BaseModel):
-    done: bool
+    done: bool 
 
 
 class NoteResponse(NoteBase):
@@ -38,5 +38,6 @@ class NoteResponse(NoteBase):
 
     class Config:
         orm_mode = True
+
 
 
