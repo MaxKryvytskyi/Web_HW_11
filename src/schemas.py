@@ -6,7 +6,7 @@ class ContactBase(BaseModel):
     first_name: str = Field(max_length=40)
     last_name: str = Field(max_length=40)
     email: str = Field(max_length=50)
-    phone: str = Field(max_length=13)
+    phone: str = Field(max_length=20)
     birthday: date 
     data: str = Field(max_length=250)
 
@@ -33,4 +33,5 @@ class ContactResponse(BaseModel):
     data: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
+        # orm_mode = True

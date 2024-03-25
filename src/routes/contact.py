@@ -1,6 +1,6 @@
-from fastapi import APIRouter, HTTPException, Depends, status
+from fastapi import APIRouter, HTTPException, Depends, status, Query
 from sqlalchemy.orm import Session
-
+from datetime import date
 from src.database.db import get_db
 from src.schemas import ContactBase, ContactResponse, ContactDataUpdate, ContactUpdate
 from src.repository import contact as repository_contact 
@@ -51,4 +51,22 @@ async def update_data_contact(contact_id: int, body: ContactDataUpdate, db: Sess
     return contact
 
 
+@router.get("/birstdays/", response_model=list[ContactResponse])
+async def get_birstdays(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    contacts = await repository_contact.get_birstdays(skip, limit, db)
+    if contacts is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Birstday not found")
+    return contacts
 
+@router.get("/contacts/search/", response_model=list[ContactResponse])
+async def search_contacts(
+    first_name: str = Query(None, description="Search contacts by first name"),
+    last_name: str = Query(None, description="Search contacts by last name"),
+    email: str = Query(None, description="Search contacts by email"),
+    phone: str = Query(None, description="Search contacts by phone"), 
+    birthday: date = Query(None, description="Search contacts by birthday"),
+    db: Session = Depends(get_db)): 
+    contacts = await repository_contact.search_contacts(first_name, last_name, email, phone, birthday, db)
+    if contacts is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Birstday not found")
+    return contacts

@@ -10,6 +10,6 @@ class Contact(Base):
     first_name = Column(String(40), nullable=False)
     last_name = Column(String(40), nullable=False)
     email = Column(String(50), nullable=False, unique=True)
-    phone = Column(String(13), nullable=False, unique=True)
+    phone = Column(String(20), nullable=False, unique=True)
     birthday = Column(Date)
     data =  Column(String(250))
